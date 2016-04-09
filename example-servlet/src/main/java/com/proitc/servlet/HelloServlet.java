@@ -7,14 +7,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-@WebServlet(urlPatterns = { "/home" }, name = "helloServlet", loadOnStartup = 1)
+//Definición del servlet usando anotaciones
+@WebServlet(urlPatterns = { "/home"}, name = "helloServlet", loadOnStartup = 1)
 public class HelloServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.getWriter().println("Hello World");
+		resp.getWriter().println("Test servlet");
 	}
 }
