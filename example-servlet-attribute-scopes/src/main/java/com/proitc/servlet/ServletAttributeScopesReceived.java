@@ -4,6 +4,8 @@ import static java.util.Objects.nonNull;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +20,7 @@ loadOnStartup = 1)
 public class ServletAttributeScopesReceived extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	private static final Logger log = Logger.getLogger(ServletAttributeScopesReceived.class.getName());
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -36,5 +39,28 @@ public class ServletAttributeScopesReceived extends HttpServlet {
 				"Received: attrib1=" + attrib1 + "<br>" +
 				"Received: attrib2=" + attrib2 + "<br>" +
 				"Received: attrib3=" + attrib3 + "<br>");
+		// Lectura de atributos de request
+		Enumeration<String> attributeNames = request.getAttributeNames();
+		while (attributeNames.hasMoreElements()) {
+			// Nombre atributo
+			String nombre = attributeNames.nextElement();
+			// Valor
+			String valor = (String) request.getAttribute(nombre);
+			log.info(nombre + "=" + valor);
+		}
+		// Lectura de atributos de session
+		attributeNames = session.getAttributeNames();
+		while (attributeNames.hasMoreElements()) {
+			String nombre = attributeNames.nextElement();
+			String valor = (String) session.getAttribute(nombre);
+			log.info(nombre + "=" + valor);
+		}
+		// Lectura de atributos de aplicación
+		attributeNames = getServletContext().getAttributeNames();
+		while (attributeNames.hasMoreElements()) {
+			String nombre = attributeNames.nextElement();
+			Object valor = getServletContext().getAttribute(nombre).toString();
+			log.info(nombre + "=" + valor);
+		}
 	}
 }
