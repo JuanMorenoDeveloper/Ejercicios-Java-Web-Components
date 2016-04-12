@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1">
+	<welcome-file-list>
+		<!-- Apunto a la ruta del servlet -->
+		<welcome-file>servletFiltered</welcome-file>
+	</welcome-file-list>
+	<!-- Definición de filtros -->
+	<!-- La ejecución de los filtros se realiza en función de como se declaran, 
+		pero el filtro por url-pattern tiene prioridad sobre el del nombre servlet -->
+	<filter>
+		<filter-name>FiltroServlet</filter-name>
+		<filter-class>com.proitc.filter.FilterByServlet</filter-class>
+		<init-param>
+			<param-name>param2</param-name>
+			<param-value>FiltroServlet</param-value>
+		</init-param>
+	</filter>
+	<!-- -->
+	<filter>
+		<filter-name>FiltroRuta</filter-name>
+		<filter-class>com.proitc.filter.FilterByPath</filter-class>
+		<init-param>
+			<param-name>param1</param-name>
+			<param-value>FiltroRuta</param-value>
+		</init-param>
+	</filter>
+	<!-- Mapeos de los filtros -->
+	<!-- Para servlet -->
+	<filter-mapping>
+		<filter-name>FiltroServlet</filter-name>
+		<servlet-name>ServletToFilter</servlet-name>
+	</filter-mapping>
+	<!-- Para ruta -->
+	<filter-mapping>
+		<filter-name>FiltroRuta</filter-name>
+		<url-pattern>/servletFiltered</url-pattern>
+	</filter-mapping>
+</web-app>
