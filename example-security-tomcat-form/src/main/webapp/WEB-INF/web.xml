@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1">
+	<welcome-file-list>
+		<welcome-file>/index.jsp</welcome-file>
+	</welcome-file-list>
+	<security-role>
+		<description>Administrador del portal</description>
+		<role-name>admin</role-name>
+	</security-role>
+	<security-role>
+		<description>Usuario común</description>
+		<role-name>user</role-name>
+	</security-role>
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/login.jsp</form-login-page>
+			<form-error-page>/errorpages/invaliduser.jsp</form-error-page>
+		</form-login-config>
+	</login-config>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Default</web-resource-name>
+			<url-pattern>/index.jsp</url-pattern>
+			<url-pattern>/logout.do</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>*</role-name>
+		</auth-constraint>
+	</security-constraint>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Permisos admin</web-resource-name>
+			<url-pattern>/admin-area/*</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>administrator</role-name>
+		</auth-constraint>
+		<user-data-constraint>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Permisos usuario</web-resource-name>
+			<url-pattern>/user-area/*</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+			<role-name>user</role-name>
+		</auth-constraint>
+		<user-data-constraint>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/errorpages/notfound.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/errorpages/denied.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>401</error-code>
+		<location>/errorpages/noauthorized.jsp</location>
+	</error-page>
+	<session-config>
+		<session-timeout>5</session-timeout>
+	</session-config>
+</web-app>
