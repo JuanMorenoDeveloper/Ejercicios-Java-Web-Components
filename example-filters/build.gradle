@@ -1,0 +1,23 @@
+//Configuración de plugins
+apply plugin: 'java'
+apply plugin: 'war'
+compileJava.options.encoding = 'UTF-8'
+group='com.proitc'
+version='1.0'
+sourceCompatibility='1.8'
+targetCompatibility='1.8'
+//Configuración de dependencias
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+    providedCompile "javax.servlet.jsp:javax.servlet.jsp-api:2.3.1"
+    providedCompile "javax.el:javax.el-api:3.0.0"
+    providedCompile "javax.servlet.jsp.jstl:javax.servlet.jsp.jstl-api:1.2.1"
+    providedCompile "org.glassfish.web:javax.servlet.jsp.jstl:1.2.2"        
+}
+
+
+
