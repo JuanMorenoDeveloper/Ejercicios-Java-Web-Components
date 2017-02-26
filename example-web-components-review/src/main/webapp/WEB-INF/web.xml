@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	 version="3.1">
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <servlet>
+    	<servlet-name>OriginServlet</servlet-name>
+    	<servlet-class>com.proitc.servlet.OriginServlet</servlet-class>
+    </servlet>
+     <servlet>
+    	<servlet-name>DestServlet</servlet-name>
+    	<servlet-class>com.proitc.servlet.DestServlet</servlet-class>
+    </servlet>
+    <filter>
+    	<filter-name>AddParamFilter</filter-name>
+    	<filter-class>com.proitc.filter.AddParamFilter</filter-class>
+    </filter>
+    <servlet-mapping>
+    	<servlet-name>OriginServlet</servlet-name>
+    	<url-pattern>/origin</url-pattern>    	
+    </servlet-mapping>
+     <servlet-mapping>
+    	<servlet-name>DestServlet</servlet-name>
+    	<url-pattern>/dest/Destination</url-pattern>    	
+    </servlet-mapping>
+    <filter-mapping>
+    	<filter-name>AddParamFilter</filter-name>
+    	<servlet-name>DestServlet</servlet-name>
+	<!-- <dispatcher>FORWARD</dispatcher> -->
+    	<dispatcher>REQUEST</dispatcher><!-- Opción por defecto en los filtros -->
+    </filter-mapping>
+   	<listener>
+   		<listener-class>com.proitc.listener.SessionListener</listener-class>
+ 	</listener>
+ 	<listener>
+   		<listener-class>com.proitc.listener.SessionAttributeListener</listener-class>
+ 	</listener>
+ 	<context-param>
+	 	<param-name>titleStr</param-name>
+	 	<param-value>titleStr</param-value>
+ 	</context-param>
+    <welcome-file-list>
+    	<welcome-file>/index.jsp</welcome-file>
+    </welcome-file-list>
+    
+    <jsp-config>
+	    <taglib> 
+	    	<taglib-uri>http://proitc.com/functions</taglib-uri>   	
+	    	<taglib-location>/WEB-INF/tags/functions.tld</taglib-location>
+	    </taglib>
+    </jsp-config>
+</web-app>
